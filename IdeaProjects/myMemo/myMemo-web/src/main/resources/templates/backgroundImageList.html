@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+</head>
+<body>
+<br>
+<br/>
+<form th:action="@{/api/bgimg/list}" style="text-align: center;margin: auto;">
+    创建人：<input type="text" name="creator" style="width: 100px">
+    修改人：<input type="text" name="modifier" style="width: 100px">
+    <input type="submit" value="查询">
+</form>
+<div>
+    <br>
+
+    <table border="1" style="text-align: center;margin: auto;">
+        <tr>
+            <th>id</th>
+            <th>图片url</th>
+            <th>创建人</th>
+            <th>修改人</th>
+            <th>创建时间</th>
+            <th>修改时间</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="bgImg : ${page.data}">
+            <td th:text="${bgImg.id}"></td>
+            <td th:text="${bgImg.imageUrl}"></td>
+            <td th:text="${bgImg.creator}"></td>
+            <td th:text="${bgImg.modifier}"></td>
+            <td th:text="${#dates.format(bgImg.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${#dates.format(bgImg.gmtModified,'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td>
+                <a href="">删除</a>
+                <a href="">编辑</a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div style="text-align: center;margin: auto;">
+    <a href="">添加</a>
+</div>
+<!--引入page.html分页模板-->
+<div th:insert="page::page"></div>
+</body>
+</html>

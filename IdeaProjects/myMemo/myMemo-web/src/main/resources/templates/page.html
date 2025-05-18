@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!--suppress ALL--> <!-- 去掉红色下划线-->
+<html>
+<div th:fragment="page">
+  <style>
+    .page{
+        border: 1px solid blue;
+        margin-right: 5px;
+        padding: 3px 5px;
+    }
+    .page.active{
+        color: red;
+        border: 1px solid red;
+    }
+  </style>
+
+  <div style="float: left">
+    当前第<span th:text="${page.pageIndex}"></span>页
+    总记录数<span th:text="${page.totalCount}"></span>
+  </div>
+  <div style="float: right">
+    <a th:text="首页" th:if="${page.pageIndex>1}" th:href="@{${path}}"></a>
+    <a th:text="上一页" th:if="${page.pageIndex>1}" th:href="@{${path}+${page.pageIndex-1}}"></a>
+    <a th:href="@{${path}+${i}}" th:each="i:${#numbers.sequence(1,page.totalPage)}" th:text="${i}"
+
+       th:class="${page.pageIndex==i}? 'page active':'page'"></a>
+    <a th:text="下一页" th:if="${page.pageIndex<page.totalPage}" th:href="@{${path}+${page.pageIndex+1}}"></a>
+    <a th:text="尾页" th:if="${page.pageIndex<page.totalPage}" th:href="@{${path}+${page.totalPage}}"></a>
+  </div>
+</div>
+</html>
+————————————————
+
+版权声明：本文为博主原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接和本声明。
+
+原文链接：https://blog.csdn.net/qq_60506984/article/details/128439507
